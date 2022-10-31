@@ -67,6 +67,9 @@ variable "service_endpoints" {
 variable "variable_groups" {
   default = {}
 }
+variable "environments" {
+  default = {}
+}
 variable "pipelines" {
   default = {}
 }
