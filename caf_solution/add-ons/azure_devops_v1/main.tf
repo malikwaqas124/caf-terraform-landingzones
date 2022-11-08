@@ -10,7 +10,7 @@ terraform {
     }
     azuredevops = {
       source  = "microsoft/azuredevops"
-      version = "~> 0.1.3"
+      version = "~> 0.3.0"
     }
   }
   required_version = ">= 0.13"
