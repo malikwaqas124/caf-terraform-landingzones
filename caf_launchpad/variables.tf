@@ -59,10 +59,6 @@ variable "enable" {
   default     = {}
 }
 
-variable "prefix" {
-  default = null
-}
-
 variable "use_slug" {
   default = true
 }
@@ -179,6 +175,10 @@ variable "azuread_api_permissions" {
 
 variable "azuread_applications" {
   default = {}
+}
+
+variable "prefix" {
+  default = ""
 }
 
 variable "environment" {
