@@ -79,10 +79,10 @@ provider "azuread" {
 
 
 resource "random_string" "prefix" {
-  count   = var.prefix == null ? 1 : 0
-  length  = 4
+  count   = locals.env_prefix == null ? 1 : 0
+  length  = 7
   special = false
-  upper   = false
+  upper   = true
   number  = false
 }
 
@@ -90,7 +90,9 @@ locals {
   landingzone_tag = {
     "landingzone" = var.landingzone.key
   }
-
+  env_Prefix = {
+    "prefix"= var.environment
+  }
   tags = merge(local.global_settings.tags, local.landingzone_tag, { "level" = var.landingzone.level }, { "environment" = local.global_settings.environment }, { "rover_version" = var.rover_version }, var.tags)
 
   global_settings = {
@@ -98,9 +100,9 @@ locals {
     environment        = var.environment
     inherit_tags       = var.inherit_tags
     passthrough        = var.passthrough
-    prefix             = var.prefix
-    prefixes           = var.prefix == "" ? null : [try(random_string.prefix.0.result, var.prefix)]
-    prefix_with_hyphen = var.prefix == "" ? null : format("%s", try(random_string.prefix.0.result, var.prefix))
+    prefix             = locals.env_prefix
+    prefixes           = locals.env_prefix == "" ? null : [try(random_string.prefix.0.result, locals.env_prefix)]
+    prefix_with_hyphen = locals.env_prefix == "" ? null : format("%s", try(random_string.prefix.0.result, locals.env_prefix))
     random_length      = var.random_length
     regions            = var.regions
     tags               = var.tags
